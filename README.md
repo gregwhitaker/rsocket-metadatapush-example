@@ -1,7 +1,7 @@
 # rsocket-metadatapush-example
 An example of sending metadata at runtime with the metadata-push interaction model in [RSocket](http://rsocket.io).
 
-In this example the `hello-client` will first request a hello message for Bob in english from the `hello-service`. Once the 
+In this example the `hello-client` will first request a hello message for Bob, in english, from the `hello-service`. Once the 
 hello message is received by the client it will then send a metadata-push message to change the language to french. Finally, after
 the language has been changed, the client will send another request for a hello message for Bob.
 
