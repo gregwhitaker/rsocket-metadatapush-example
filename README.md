@@ -36,6 +36,9 @@ Follow the steps below to run the example:
         [main] INFO example.hello.client.HelloClient - Sending request for 'Bob'
         [main] INFO example.hello.client.HelloClient - Response: Bonjour, Bob!
 
+## Bugs and Feedback
+For bugs, questions, and discussions please use the [Github Issues](https://github.com/gregwhitaker/rsocket-metadatapush-example/issues).
+
 ## License
 MIT License
 
