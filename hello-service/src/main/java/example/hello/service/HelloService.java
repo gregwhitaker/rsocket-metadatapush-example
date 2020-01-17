@@ -1,5 +1,7 @@
 package example.hello.service;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.rsocket.AbstractRSocket;
 import io.rsocket.ConnectionSetupPayload;
 import io.rsocket.Payload;
@@ -7,6 +9,8 @@ import io.rsocket.RSocket;
 import io.rsocket.RSocketFactory;
 import io.rsocket.SocketAcceptor;
 import io.rsocket.frame.decoder.PayloadDecoder;
+import io.rsocket.metadata.CompositeMetadata;
+import io.rsocket.metadata.CompositeMetadataFlyweight;
 import io.rsocket.transport.netty.server.TcpServerTransport;
 import io.rsocket.util.DefaultPayload;
 import org.slf4j.Logger;
@@ -42,7 +46,11 @@ public class HelloService {
 
                             @Override
                             public Mono<Void> metadataPush(Payload payload) {
-                                final String locale = payload.getDataUtf8();
+                                ByteBuf[] bufs = CompositeMetadataFlyweight.decodeMimeAndContentBuffersSlices(payload.metadata(), 0, true);
+
+                                byte[] b = new byte[bufs[1].readableBytes()];
+                                bufs[1].readBytes(b);
+                                String locale = new String(b);
 
                                 if (locale.equalsIgnoreCase("en_us")) {
                                     LOG.info("Received metadata push: {}", locale);

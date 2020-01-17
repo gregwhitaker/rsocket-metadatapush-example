@@ -5,10 +5,12 @@ allprojects {
     version = '0.1.0'
 
     ext {
-        rsocketVersion = '1.0.0-RC5'
+        //rsocketVersion = '1.0.0-RC5'
+        rsocketVersion = '0.12.2-RC4'
     }
 
     repositories {
+        maven { url = 'https://repo.spring.io/milestone' }
         mavenCentral()
     }
 }
