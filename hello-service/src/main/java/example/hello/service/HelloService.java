@@ -13,6 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 
+/**
+ * Service that returns hello messages requested by the hello-client.
+ */
 public class HelloService {
     private static final Logger LOG = LoggerFactory.getLogger(HelloService.class);
 
@@ -31,6 +34,9 @@ public class HelloService {
                             @Override
                             public Mono<Payload> requestResponse(Payload payload) {
                                 final String name = payload.getDataUtf8();
+
+                                LOG.info("Sending message: {}", String.format(messageFormat, name));
+
                                 return Mono.just(DefaultPayload.create(String.format(messageFormat, name)));
                             }
 
@@ -39,13 +45,16 @@ public class HelloService {
                                 final String locale = payload.getDataUtf8();
 
                                 if (locale.equalsIgnoreCase("en_us")) {
+                                    LOG.info("Received metadata push: {}", locale);
                                     messageFormat = EN_US_MESSAGE;
                                     return Mono.empty();
                                 } else if (locale.equalsIgnoreCase("fr_fr")) {
+                                    LOG.info("Received metadata push: {}", locale);
                                     messageFormat = FR_FR_MESSAGE;
                                     return Mono.empty();
                                 } else {
-                                    return Mono.error(new IllegalArgumentException("Invalid local specified"));
+                                    LOG.error("Received invalid local in metadatapush");
+                                    return Mono.error(new IllegalArgumentException("Received invalid local in metadatapush"));
                                 }
                             }
                         });
