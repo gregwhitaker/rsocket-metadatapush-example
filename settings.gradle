@@ -1,0 +1,4 @@
+rootProject.name = 'rsocket-metadatapush-example'
+include 'hello-client'
+include 'hello-service'
+
