@@ -1,4 +1,6 @@
 # rsocket-metadatapush-example
+![Build](https://github.com/gregwhitaker/rsocket-metadatapush-example/workflows/Build/badge.svg)
+
 An example of sending metadata at runtime with the metadata-push interaction model in [RSocket](http://rsocket.io).
 
 In this example the `hello-client` will first request a hello message for Bob, in english, from the `hello-service`. Once the 
